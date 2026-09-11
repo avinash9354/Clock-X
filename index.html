@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark" data-theme="midnight">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock Hub – Time Beyond Limits</title>
+  <meta name="description"
+    content="Clock Hub v3.0 – A professional time, productivity and world-clock dashboard. Analog clock, Pomodoro, alarms, timers, events, tasks and more.">
+  <meta name="theme-color" content="#0c1420">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div>
+          <div class="sidebar-brand">Analog <span>Clock</span></div>
+          <div class="sidebar-sub">Time Beyond Limits</div>
+        </div>
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">✕</button>
+      </div>
+
+      <nav class="nav" id="nav">
+        <!-- Home -->
+        <div class="nav-item active" data-view="home">
+          <div class="nav-icon icon-home"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+              <polyline points="9 21 9 12 15 12 15 21" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Home</div>
+            <div class="nav-desc">Clock dashboard</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Clock Studio -->
+        <div class="nav-item" data-view="studio">
+          <div class="nav-icon icon-studio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="13.5" cy="6.5" r="1.5" />
+              <circle cx="17.5" cy="10.5" r="1.5" />
+              <circle cx="8.5" cy="7.5" r="1.5" />
+              <circle cx="6.5" cy="12.5" r="1.5" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.1 0 2-.9 2-2 0-.55-.22-1.05-.59-1.41-.37-.36-.59-.86-.59-1.41 0-1.1.9-2 2-2h2.35C19.45 15.18 22 13.23 22 11 22 6.04 17.52 2 12 2z" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Clock Studio</div>
+            <div class="nav-desc">Themes &amp; styles</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Dark/Light -->
+        <div class="nav-item" id="rowDarkLight">
+          <div class="nav-icon icon-darkmode"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              <circle cx="18" cy="5" r="1" fill="#fff" />
+              <circle cx="21" cy="9" r="1" fill="#fff" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Dark / Light Mode</div>
+            <div class="nav-desc">Toggle appearance</div>
+          </div>
+          <div class="switch" id="switchModeWrap"><input type="checkbox" id="toggleMode"><label for="toggleMode"
+              id="labelMode"></label></div>
+        </div>
+        <!-- 12/24 format -->
+        <div class="nav-item" id="rowFormat">
+          <div class="nav-icon icon-format"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="8" height="10" rx="2" />
+              <path d="M14 7h4v10M14 12h3" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">12 / 24 Hour Format</div>
+            <div class="nav-desc">Time display format</div>
+          </div>
+          <div class="switch" id="switchFormatWrap"><input type="checkbox" id="toggleFormat"><label for="toggleFormat"
+              id="labelFormat"></label></div>
+        </div>
+        <!-- World Clocks -->
+        <div class="nav-item" data-view="world">
+          <div class="nav-icon icon-world"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">World Clocks</div>
+            <div class="nav-desc">Global time zones</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Time Converter -->
+        <div class="nav-item" data-view="converter">
+          <div class="nav-icon icon-converter"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="17 1 21 5 17 9" />
+              <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+              <polyline points="7 23 3 19 7 15" />
+              <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Time Converter</div>
+            <div class="nav-desc">Zone comparison</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Weather -->
+        <div class="nav-item" data-view="weather">
+          <div class="nav-icon icon-weather"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Weather</div>
+            <div class="nav-desc">Live conditions</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Alarm -->
+        <div class="nav-item" data-view="alarm">
+          <div class="nav-icon icon-alarm"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="13" r="8" />
+              <path d="M5 3L2 6M22 6l-3-3M12 9v4l2.5 2.5" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Alarms</div>
+            <div class="nav-desc">Smart alarm system</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Stopwatch -->
+        <div class="nav-item" data-view="stopwatch">
+          <div class="nav-icon icon-stopwatch"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="14" r="7" />
+              <path d="M12 7V3M9 3h6M12 11v3l2 1" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Stopwatch</div>
+            <div class="nav-desc">Precision lap timer</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Timer -->
+        <div class="nav-item" data-view="timer">
+          <div class="nav-icon icon-timer"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="13" r="8" />
+              <path d="M12 9v4l3 2M9.5 2h5" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Timer</div>
+            <div class="nav-desc">Countdown with presets</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Pomodoro -->
+        <div class="nav-item" data-view="pomodoro">
+          <div class="nav-icon icon-pomodoro"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />
+              <path d="M12 6v6l4 2" />
+              <path d="M6 2l1 2M18 2l-1 2" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Focus / Pomodoro</div>
+            <div class="nav-desc">Deep work sessions</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Events -->
+        <div class="nav-item" data-view="events">
+          <div class="nav-icon icon-events"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Events</div>
+            <div class="nav-desc">Countdown to events</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Tasks -->
+        <div class="nav-item" data-view="tasks">
+          <div class="nav-icon icon-tasks"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4" />
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Tasks</div>
+            <div class="nav-desc">Time blocks &amp; tasks</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Statistics -->
+        <div class="nav-item" data-view="statistics">
+          <div class="nav-icon icon-statistics"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+              stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+              <line x1="2" y1="20" x2="22" y2="20" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Statistics</div>
+            <div class="nav-desc">Productivity analytics</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Sound -->
+        <div class="nav-item" data-view="sound">
+          <div class="nav-icon icon-sound"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Sound Center</div>
+            <div class="nav-desc">Audio &amp; volume</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Display -->
+        <div class="nav-item" data-view="display">
+          <div class="nav-icon icon-display"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Display Settings</div>
+            <div class="nav-desc">Fullscreen, animations…</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Shortcuts -->
+        <div class="nav-item" data-view="shortcuts">
+          <div class="nav-icon icon-shortcuts"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M18 12h.01M10 12h4M6 16h12" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Keyboard Shortcuts</div>
+            <div class="nav-desc">View all shortcuts</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- Settings -->
+        <div class="nav-item" data-view="settings">
+          <div class="nav-icon icon-settings"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">Settings</div>
+            <div class="nav-desc">App configuration</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+        <!-- About -->
+        <div class="nav-item" data-view="about">
+          <div class="nav-icon icon-about"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="8" />
+              <line x1="12" y1="12" x2="12" y2="16" />
+            </svg></div>
+          <div class="nav-labels">
+            <div class="nav-title">About</div>
+            <div class="nav-desc">Clock Hub v3.0</div>
+          </div>
+          <div class="nav-chevron">›</div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">Made with <b>❤</b> by Avinash</div>
+    </aside>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="main">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+      <div class="tagline">Every Second Counts</div>
+
+      <!-- =================== HOME =================== -->
+      <section class="view active" id="view-home">
+        <div class="home-wrap">
+          <!-- Clock -->
+          <div class="clock">
+            <div class="numbers">
+              <div class="circle" id="sec" style="--clr:#04fc43;"><i></i></div>
+              <div class="circle" id="min" style="--clr:#fee800;"><i></i></div>
+              <div class="circle" id="hrs" style="--clr:#ff2972;"><i></i></div>
+              <span style="--i:0;"><b>12</b></span>
+              <span style="--i:1;"><b>1</b></span>
+              <span style="--i:2;"><b>2</b></span>
+              <span style="--i:3;"><b>3</b></span>
+              <span style="--i:4;"><b>4</b></span>
+              <span style="--i:5;"><b>5</b></span>
+              <span style="--i:6;"><b>6</b></span>
+              <span style="--i:7;"><b>7</b></span>
+              <span style="--i:8;"><b>8</b></span>
+              <span style="--i:9;"><b>9</b></span>
+              <span style="--i:10;"><b>10</b></span>
+              <span style="--i:11;"><b>11</b></span>
+            </div>
+            <div id="time">
+              <div id="hours" style="--clr:#ff2972;">00</div>
+              <div id="minutes" style="--clr:#fee800;">00</div>
+              <div id="seconds" style="--clr:#04fc43;">00</div>
+              <div id="AMPM" style="--clr:#fff;">PM</div>
+            </div>
+          </div>
+
+          <!-- Date pill -->
+          <div class="date-pill">
+            <span style="font-size:20px;">📅</span>
+            <div>
+              <b id="dateFull">—</b>
+              <div class="sub"><span>📍</span><span id="tzInfo">—</span></div>
+            </div>
+          </div>
+
+          <!-- Day info cards -->
+          <div class="home-info-grid" id="homeInfoGrid">
+            <div class="info-card" id="infoSunrise">
+              <div class="info-icon">🌅</div>
+              <div class="info-val" id="valSunrise">—</div>
+              <div class="info-lbl">Sunrise</div>
+            </div>
+            <div class="info-card" id="infoSunset">
+              <div class="info-icon">🌇</div>
+              <div class="info-val" id="valSunset">—</div>
+              <div class="info-lbl">Sunset</div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon">📆</div>
+              <div class="info-val" id="valWeek">—</div>
+              <div class="info-lbl">Week No.</div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon">⏱</div>
+              <div class="info-val" id="valDayLen">—</div>
+              <div class="info-lbl">Day Length</div>
+            </div>
+          </div>
+
+          <!-- Day progress -->
+          <div class="day-progress-wrap">
+            <div class="day-progress-label">
+              <span>Day Progress</span>
+              <span id="dayProgressPct">0%</span>
+            </div>
+            <div class="day-progress-track">
+              <div class="day-progress-bar" id="dayProgressBar"></div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <div class="qa-title">Quick Actions</div>
+            <div class="qa-grid">
+              <button class="qa-btn" id="qaStopwatch" aria-label="Start Stopwatch"><span>⏱</span>Stopwatch</button>
+              <button class="qa-btn" id="qaTimer" aria-label="Start Timer"><span>⏳</span>Timer</button>
+              <button class="qa-btn qa-accent" id="qaPomodoro"
+                aria-label="Start Pomodoro"><span>🍅</span>Pomodoro</button>
+              <button class="qa-btn" id="qaAlarm" aria-label="Add Alarm"><span>⏰</span>Alarm</button>
+              <button class="qa-btn" id="qaEvents" aria-label="Add Event"><span>📅</span>Events</button>
+              <button class="qa-btn" id="qaWorld" aria-label="World Clock"><span>🌍</span>World Clock</button>
+            </div>
+          </div>
+        </div>
+        <div class="footer-tagline">GOOD TIME <span class="dot">•</span> BETTER IDEAS <span class="dot">•</span>
+          BRIGHTER TOMORROW</div>
+      </section>
+
+      <!-- =================== CLOCK STUDIO =================== -->
+      <section class="view" id="view-studio">
+        <div class="panel">
+          <h2>🎨 Clock Studio</h2>
+          <div class="lead">Customize your clock's look and feel — themes, colors and styles.</div>
+
+          <div class="studio-section-title">Themes</div>
+          <div class="theme-grid" id="themeGrid"></div>
+
+          <div class="studio-section-title" style="margin-top:28px;">Clock Accent Colors</div>
+          <div class="studio-accent-row">
+            <div class="studio-label-wrap">
+              <div class="studio-label">Seconds Hand &amp; Indicator</div>
+              <div class="studio-sub-label">Controls outer seconds ring &amp; seconds digits (Default: #04fc43)</div>
+            </div>
+            <div class="studio-picker-group">
+              <span class="studio-color-preview" id="previewSec" style="background:#04fc43;"></span>
+              <span class="studio-hex" id="hexSec">#04FC43</span>
+              <input type="color" id="studioColorA" value="#04fc43" class="color-picker" aria-label="Seconds Color">
+            </div>
+          </div>
+          <div class="studio-accent-row">
+            <div class="studio-label-wrap">
+              <div class="studio-label">Minutes Hand &amp; Indicator</div>
+              <div class="studio-sub-label">Controls middle minutes ring &amp; minutes digits (Default: #fee800)</div>
+            </div>
+            <div class="studio-picker-group">
+              <span class="studio-color-preview" id="previewMin" style="background:#fee800;"></span>
+              <span class="studio-hex" id="hexMin">#FEE800</span>
+              <input type="color" id="studioColorB" value="#fee800" class="color-picker" aria-label="Minutes Color">
+            </div>
+          </div>
+          <div class="studio-accent-row">
+            <div class="studio-label-wrap">
+              <div class="studio-label">Hours Hand &amp; Indicator</div>
+              <div class="studio-sub-label">Controls inner hours ring &amp; hours digits (Default: #ff2972)</div>
+            </div>
+            <div class="studio-picker-group">
+              <span class="studio-color-preview" id="previewHrs" style="background:#ff2972;"></span>
+              <span class="studio-hex" id="hexHrs">#FF2972</span>
+              <input type="color" id="studioColorC" value="#ff2972" class="color-picker" aria-label="Hours Color">
+            </div>
+          </div>
+          <div class="studio-btn-row">
+            <button class="btn primary" id="studioApplyColors">Apply Custom Colors</button>
+            <button class="btn danger" id="studioResetColors">↺ Reset to Default Colors</button>
+          </div>
+
+          <div class="studio-section-title" style="margin-top:28px;">Clock Options</div>
+          <div class="row">
+            <div><b>Show Second Hand</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Toggle seconds ring visibility</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="studioSecHand" checked><label for="studioSecHand"></label>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Show Numbers</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Clock face hour numbers</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="studioNumbers" checked><label for="studioNumbers"></label>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Show Digital Clock</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Digital time inside clock</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="studioDigital" checked><label for="studioDigital"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== WORLD CLOCKS =================== -->
+      <section class="view" id="view-world">
+        <div class="panel">
+          <h2>🌍 World Clocks</h2>
+          <div class="lead">Live time across the cities you follow.</div>
+          <input type="text" id="wcSearch" placeholder="🔍 Search cities…" style="width:100%;margin-bottom:14px;"
+            aria-label="Search cities">
+          <div class="wc-list" id="wcList"></div>
+          <div class="add-city">
+            <select id="citySelect" aria-label="Select city to add"></select>
+            <button class="btn primary" id="addCityBtn">+ Add</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== TIME CONVERTER =================== -->
+      <section class="view" id="view-converter">
+        <div class="panel">
+          <h2>🔄 Time Zone Converter</h2>
+          <div class="lead">Convert time between any two time zones, DST-aware.</div>
+          <div class="converter-grid">
+            <div class="conv-block">
+              <div class="conv-label">FROM</div>
+              <select id="convFromTz" class="conv-select" aria-label="Source timezone"></select>
+              <input type="date" id="convDate" class="conv-input" aria-label="Date">
+              <input type="time" id="convTime" class="conv-input" aria-label="Time">
+              <button class="btn" id="convNow" style="margin-top:8px;width:100%;">⚡ Use Now</button>
+            </div>
+            <div class="conv-arrow">⇅</div>
+            <div class="conv-block">
+              <div class="conv-label">TO</div>
+              <select id="convToTz" class="conv-select" aria-label="Target timezone"></select>
+              <div class="conv-result" id="convResult">—</div>
+              <div class="conv-result-date" id="convResultDate">—</div>
+            </div>
+          </div>
+          <button class="btn primary" id="convertBtn" style="margin-top:16px;width:100%;">Convert</button>
+
+          <div class="studio-section-title" style="margin-top:24px;">Your Saved Cities</div>
+          <div class="conv-quick-list" id="convQuickList"></div>
+        </div>
+      </section>
+
+      <!-- =================== WEATHER =================== -->
+      <section class="view" id="view-weather">
+        <div class="panel">
+          <h2>🌦 Weather</h2>
+          <div class="lead">Conditions for your selected location.</div>
+          <select id="weatherCity" style="margin-bottom:16px;width:100%;" aria-label="Select city for weather"></select>
+          <div class="weather-hero">
+            <div class="icon" id="wIcon">☀️</div>
+            <div>
+              <div class="temp" id="wTemp">--°C</div>
+              <div id="wDesc" style="color:var(--panel-sub);font-size:13.5px;">—</div>
+            </div>
+          </div>
+          <div class="weather-grid">
+            <div>
+              <div class="v" id="wHumidity">--%</div>
+              <div class="l">Humidity</div>
+            </div>
+            <div>
+              <div class="v" id="wWind">-- km/h</div>
+              <div class="l">Wind</div>
+            </div>
+            <div>
+              <div class="v" id="wFeels">--°C</div>
+              <div class="l">Feels like</div>
+            </div>
+            <div>
+              <div class="v" id="wUV">--</div>
+              <div class="l">UV Index</div>
+            </div>
+            <div>
+              <div class="v" id="wVisibility">-- km</div>
+              <div class="l">Visibility</div>
+            </div>
+            <div>
+              <div class="v" id="wPressure">-- hPa</div>
+              <div class="l">Pressure</div>
+            </div>
+          </div>
+          <div class="weather-sun-row">
+            <div class="weather-sun-item"><span>🌅</span><span id="wSunrise">—</span><span>Sunrise</span></div>
+            <div class="weather-sun-item"><span>🌇</span><span id="wSunset">—</span><span>Sunset</span></div>
+          </div>
+          <div class="weather-note" id="wNote">Demo data generated locally — no live API connected.</div>
+        </div>
+      </section>
+
+      <!-- =================== ALARM =================== -->
+      <section class="view" id="view-alarm">
+        <div class="panel">
+          <h2>⏰ Alarms</h2>
+          <div class="lead">Smart alarms with repeat, snooze and labels.</div>
+          <div class="banner" id="alarmBanner"><span id="alarmBannerText">⏰ Alarm ringing!</span>
+            <div style="display:flex;gap:8px;"><button class="btn" id="alarmSnooze">Snooze 10m</button><button
+                class="btn danger" id="alarmDismiss">Dismiss</button></div>
+          </div>
+          <div class="alarm-form">
+            <input type="time" id="alarmTime" aria-label="Alarm time">
+            <input type="text" id="alarmLabel" placeholder="Label (optional)" style="flex:1;min-width:120px;"
+              aria-label="Alarm label">
+            <select id="alarmRepeat" aria-label="Repeat">
+              <option value="once">Once</option>
+              <option value="daily">Daily</option>
+              <option value="weekdays">Weekdays</option>
+              <option value="weekends">Weekends</option>
+            </select>
+            <button class="btn primary" id="addAlarmBtn">+ Add Alarm</button>
+          </div>
+          <div class="alarm-list" id="alarmList"></div>
+        </div>
+      </section>
+
+      <!-- =================== STOPWATCH =================== -->
+      <section class="view" id="view-stopwatch">
+        <div class="panel">
+          <h2>⏱ Stopwatch</h2>
+          <div class="lead">Millisecond precision with full lap analytics.</div>
+          <div class="big-time" id="swDisplay">00:00.000</div>
+
+          <div class="sw-stats-row" id="swStats" style="display:none;">
+            <div class="sw-stat">
+              <div class="sw-stat-val" id="swBestLap">—</div>
+              <div class="sw-stat-lbl">Best Lap</div>
+            </div>
+            <div class="sw-stat">
+              <div class="sw-stat-val" id="swWorstLap">—</div>
+              <div class="sw-stat-lbl">Worst Lap</div>
+            </div>
+            <div class="sw-stat">
+              <div class="sw-stat-val" id="swAvgLap">—</div>
+              <div class="sw-stat-lbl">Avg Lap</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" id="swStartBtn">Start</button>
+            <button class="btn" id="swLapBtn">Lap</button>
+            <button class="btn danger" id="swResetBtn">Reset</button>
+            <button class="btn" id="swClearBtn">Clear Laps</button>
+            <button class="btn" id="swExportBtn">Export CSV</button>
+          </div>
+          <div class="laps" id="swLaps"></div>
+        </div>
+      </section>
+
+      <!-- =================== TIMER =================== -->
+      <section class="view" id="view-timer">
+        <div class="panel">
+          <h2>⏳ Timer</h2>
+          <div class="lead">Accurate countdown with presets and progress ring.</div>
+
+          <!-- Preset buttons -->
+          <div class="timer-presets" id="timerPresets">
+            <button class="preset-btn" data-sec="60">1m</button>
+            <button class="preset-btn" data-sec="300">5m</button>
+            <button class="preset-btn" data-sec="600">10m</button>
+            <button class="preset-btn" data-sec="900">15m</button>
+            <button class="preset-btn" data-sec="1500">25m</button>
+            <button class="preset-btn" data-sec="1800">30m</button>
+            <button class="preset-btn" data-sec="2700">45m</button>
+            <button class="preset-btn" data-sec="3600">60m</button>
+          </div>
+
+          <div class="timer-inputs">
+            <label>Hours <input type="number" id="tHours" min="0" max="23" value="0"></label>
+            <label>Minutes <input type="number" id="tMinutes" min="0" max="59" value="5"></label>
+            <label>Seconds <input type="number" id="tSeconds" min="0" max="59" value="0"></label>
+          </div>
+          <input type="text" id="timerLabel" placeholder="Timer label (optional)" style="width:100%;margin-bottom:16px;"
+            aria-label="Timer label">
+
+          <!-- SVG progress ring -->
+          <div class="timer-ring-wrap">
+            <svg class="timer-ring" viewBox="0 0 220 220" width="220" height="220">
+              <circle class="timer-ring-bg" cx="110" cy="110" r="92" />
+              <circle class="timer-ring-fg" id="timerRingFg" cx="110" cy="110" r="92" />
+            </svg>
+            <div class="timer-ring-inner">
+              <div class="big-time timer-display-text" id="timerDisplay">00:05:00</div>
+              <div class="timer-pct" id="timerPct">100%</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" id="timerStartBtn">Start</button>
+            <button class="btn" id="timerPauseBtn">Pause</button>
+            <button class="btn danger" id="timerResetBtn">Reset</button>
+          </div>
+          <div class="row" style="margin-top:16px;">
+            <div><b>Auto Restart</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Repeat when done</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="timerAutoRestart"><label for="timerAutoRestart"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== POMODORO =================== -->
+      <section class="view" id="view-pomodoro">
+        <div class="panel">
+          <h2>🍅 Focus / Pomodoro</h2>
+          <div class="lead">Deep work in structured sessions. Stay in flow.</div>
+
+          <!-- Session type tabs -->
+          <div class="pomo-tabs">
+            <button class="pomo-tab active" data-type="work" id="pomoTabWork">Work</button>
+            <button class="pomo-tab" data-type="short" id="pomoTabShort">Short Break</button>
+            <button class="pomo-tab" data-type="long" id="pomoTabLong">Long Break</button>
+          </div>
+
+          <!-- Ring -->
+          <div class="timer-ring-wrap" style="margin:22px auto;">
+            <svg class="timer-ring" viewBox="0 0 160 160" width="160" height="160">
+              <circle class="timer-ring-bg" cx="80" cy="80" r="70" />
+              <circle class="timer-ring-fg pomo-ring" id="pomoRingFg" cx="80" cy="80" r="70" />
+            </svg>
+            <div class="timer-ring-inner">
+              <div class="big-time" id="pomoDisplay" style="margin:0;font-size:32px;">25:00</div>
+              <div style="font-size:11px;color:var(--panel-sub);margin-top:4px;" id="pomoSessionLabel">Work Session
+              </div>
+            </div>
+          </div>
+
+          <!-- Session counter -->
+          <div class="pomo-dots" id="pomoDots"></div>
+          <div style="text-align:center;font-size:13px;color:var(--panel-sub);margin-top:6px;" id="pomoSessionNum">
+            Session 1 of 4</div>
+
+          <div class="controls" style="margin-top:18px;">
+            <button class="btn primary" id="pomoStartBtn">Start</button>
+            <button class="btn" id="pomoSkipBtn">Skip</button>
+            <button class="btn danger" id="pomoResetBtn">Reset</button>
+          </div>
+
+          <div class="row">
+            <div><b>Auto-start next session</b></div>
+            <div class="switch"><input type="checkbox" id="pomoAutoStart"><label for="pomoAutoStart"></label></div>
+          </div>
+
+          <div class="studio-section-title" style="margin-top:20px;">Durations (minutes)</div>
+          <div class="pomo-settings-row">
+            <label class="studio-label">Work<input type="number" id="pomoDurWork" value="25" min="1" max="90"
+                style="width:64px;margin-left:8px;"></label>
+            <label class="studio-label">Short Break<input type="number" id="pomoDurShort" value="5" min="1" max="30"
+                style="width:64px;margin-left:8px;"></label>
+            <label class="studio-label">Long Break<input type="number" id="pomoDurLong" value="15" min="1" max="60"
+                style="width:64px;margin-left:8px;"></label>
+          </div>
+          <button class="btn" id="pomoSaveDur" style="margin-top:10px;">Save Durations</button>
+
+          <div class="studio-section-title" style="margin-top:20px;">Today's Focus</div>
+          <div class="pomo-stats-row">
+            <div class="pomo-stat">
+              <div class="pomo-stat-val" id="pomoTodaySessions">0</div>
+              <div class="pomo-stat-lbl">Sessions</div>
+            </div>
+            <div class="pomo-stat">
+              <div class="pomo-stat-val" id="pomoTodayMinutes">0m</div>
+              <div class="pomo-stat-lbl">Focus Time</div>
+            </div>
+            <div class="pomo-stat">
+              <div class="pomo-stat-val" id="pomoStreak">0</div>
+              <div class="pomo-stat-lbl">Day Streak</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== EVENTS =================== -->
+      <section class="view" id="view-events">
+        <div class="panel">
+          <h2>📅 Events</h2>
+          <div class="lead">Countdown to what matters. Never miss the moment.</div>
+          <div class="event-form" id="eventForm">
+            <div class="event-form-row">
+              <input type="text" id="evtName" placeholder="Event name *" style="flex:1;" aria-label="Event name">
+              <select id="evtIcon" aria-label="Event icon">
+                <option value="🎂">🎂 Birthday</option>
+                <option value="📝">📝 Exam</option>
+                <option value="💼">💼 Meeting</option>
+                <option value="🚀">🚀 Deadline</option>
+                <option value="✈️">✈️ Vacation</option>
+                <option value="🎉">🎉 Celebration</option>
+                <option value="💡">💡 Custom</option>
+              </select>
+            </div>
+            <div class="event-form-row">
+              <input type="date" id="evtDate" aria-label="Event date" style="flex:1;">
+              <input type="time" id="evtTime" value="09:00" aria-label="Event time" style="flex:1;">
+            </div>
+            <input type="text" id="evtDesc" placeholder="Description (optional)" style="width:100%;"
+              aria-label="Description">
+            <div class="event-form-row">
+              <label style="font-size:12px;color:var(--panel-sub);display:flex;align-items:center;gap:6px;">Color <input
+                  type="color" id="evtColor" value="#2f7bff" class="color-picker"></label>
+              <select id="evtRemind" aria-label="Reminder">
+                <option value="0">No reminder</option>
+                <option value="5">5 min before</option>
+                <option value="15">15 min before</option>
+                <option value="30">30 min before</option>
+                <option value="60">1 hour before</option>
+                <option value="1440">1 day before</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn primary" id="addEvtBtn" style="flex:1;">+ Add Event</button>
+              <button class="btn" id="cancelEvtEdit" style="display:none;">Cancel</button>
+            </div>
+          </div>
+          <div class="event-list" id="eventList"></div>
+        </div>
+      </section>
+
+      <!-- =================== TASKS =================== -->
+      <section class="view" id="view-tasks">
+        <div class="panel">
+          <h2>✅ Tasks</h2>
+          <div class="lead">Time-blocked tasks and daily schedule.</div>
+          <div class="task-form">
+            <input type="text" id="taskTitle" placeholder="Task title *" style="flex:1;" aria-label="Task title">
+            <select id="taskPriority" aria-label="Priority">
+              <option value="normal">Normal</option>
+              <option value="high">High Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+          </div>
+          <div class="task-form" style="margin-top:8px;">
+            <input type="date" id="taskDate" style="flex:1;" aria-label="Date">
+            <input type="time" id="taskStart" style="flex:1;" aria-label="Start time">
+            <input type="time" id="taskEnd" style="flex:1;" aria-label="End time">
+          </div>
+          <div class="task-form" style="margin-top:8px;">
+            <input type="text" id="taskDesc" placeholder="Description (optional)" style="flex:1;"
+              aria-label="Description">
+            <select id="taskCategory" aria-label="Category">
+              <option value="📚">📚 Study</option>
+              <option value="💻">💻 Work</option>
+              <option value="☕">☕ Break</option>
+              <option value="🏃">🏃 Exercise</option>
+              <option value="🎯">🎯 Personal</option>
+              <option value="🔧">🔧 Other</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn primary" id="addTaskBtn" style="flex:1;">+ Add Task</button>
+            <button class="btn" id="cancelTaskEdit" style="display:none;">Cancel</button>
+          </div>
+
+          <div class="task-filters" style="margin-top:16px;">
+            <button class="filter-btn active" data-filter="all" id="tfAll">All</button>
+            <button class="filter-btn" data-filter="today" id="tfToday">Today</button>
+            <button class="filter-btn" data-filter="pending" id="tfPending">Pending</button>
+            <button class="filter-btn" data-filter="done" id="tfDone">Done</button>
+          </div>
+          <div class="task-list" id="taskList"></div>
+        </div>
+      </section>
+
+      <!-- =================== STATISTICS =================== -->
+      <section class="view" id="view-statistics">
+        <div class="panel">
+          <h2>📊 Statistics</h2>
+          <div class="lead">Your productivity at a glance.</div>
+
+          <div class="stat-cards-grid" id="statCardsGrid">
+            <div class="stat-card">
+              <div class="stat-card-val" id="statFocusToday">0m</div>
+              <div class="stat-card-lbl">Focus Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-val" id="statPomoToday">0</div>
+              <div class="stat-card-lbl">Pomodoros</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-val" id="statTimersToday">0</div>
+              <div class="stat-card-lbl">Timers Done</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-val" id="statTasksToday">0</div>
+              <div class="stat-card-lbl">Tasks Done</div>
+            </div>
+          </div>
+
+          <div class="studio-section-title" style="margin-top:22px;">Weekly Focus Time</div>
+          <canvas id="statWeekChart" height="100" style="width:100%;border-radius:12px;"></canvas>
+
+          <div class="studio-section-title" style="margin-top:22px;">Focus Streak</div>
+          <div class="streak-row">
+            <div class="streak-val" id="statStreakVal">0</div>
+            <div class="streak-lbl">consecutive days</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== SOUND CENTER =================== -->
+      <section class="view" id="view-sound">
+        <div class="panel">
+          <h2>🔊 Sound Center</h2>
+          <div class="lead">Fine-tune every sound in Clock Hub.</div>
+
+          <div class="row">
+            <div><b>Master Volume</b></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="range" id="volMaster" min="0" max="100" value="70" style="width:120px;"
+                aria-label="Master volume">
+              <span id="volMasterVal">70%</span>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Tick Sound</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Clock tick every second</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="switch"><input type="checkbox" id="toggleSound" checked><label for="toggleSound"></label>
+              </div>
+              <button class="btn" id="testTick" style="padding:6px 10px;font-size:12px;">Test</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Hourly Chime</b>
+              <div style="font-size:12px;color:var(--panel-sub)">Chime at every hour</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="switch"><input type="checkbox" id="toggleChime"><label for="toggleChime"></label></div>
+              <button class="btn" id="testChime" style="padding:6px 10px;font-size:12px;">Test</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Alarm Sound</b></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="range" id="volAlarm" min="0" max="100" value="80" style="width:100px;"
+                aria-label="Alarm volume">
+              <button class="btn" id="testAlarm" style="padding:6px 10px;font-size:12px;">Test</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Timer Sound</b></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="range" id="volTimer" min="0" max="100" value="80" style="width:100px;"
+                aria-label="Timer volume">
+              <button class="btn" id="testTimer" style="padding:6px 10px;font-size:12px;">Test</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><b>Pomodoro Sound</b></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="range" id="volPomo" min="0" max="100" value="80" style="width:100px;"
+                aria-label="Pomodoro volume">
+              <button class="btn" id="testPomo" style="padding:6px 10px;font-size:12px;">Test</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== DISPLAY SETTINGS =================== -->
+      <section class="view" id="view-display">
+        <div class="panel">
+          <h2>🖥 Display Settings</h2>
+          <div class="lead">Fine-tune how Clock Hub looks and feels.</div>
+          <div class="row">
+            <div><b>Fullscreen mode</b>
+              <div style="font-size:12.5px;color:var(--panel-sub);">Expand the app to fill your screen</div>
+            </div><button class="btn" id="fullscreenBtn">Enter Fullscreen</button>
+          </div>
+          <div class="row">
+            <div><b>Ambient / Screensaver Mode</b>
+              <div style="font-size:12.5px;color:var(--panel-sub);">Minimal fullscreen clock display</div>
+            </div><button class="btn" id="ambientBtn">Launch Ambient</button>
+          </div>
+          <div class="row">
+            <div><b>Animations</b>
+              <div style="font-size:12.5px;color:var(--panel-sub);">Enable smooth transitions</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="toggleAnim" checked><label for="toggleAnim"></label></div>
+          </div>
+          <div class="row">
+            <div><b>Auto Dark/Light (System)</b>
+              <div style="font-size:12.5px;color:var(--panel-sub);">Follow OS dark/light preference</div>
+            </div>
+            <div class="switch"><input type="checkbox" id="toggleAutoMode"><label for="toggleAutoMode"></label></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== SHORTCUTS =================== -->
+      <section class="view" id="view-shortcuts">
+        <div class="panel">
+          <h2>⌨ Keyboard Shortcuts</h2>
+          <div class="lead">Work faster without touching the mouse.</div>
+          <div class="kbd-list">
+            <div class="kbd-section">Navigation</div>
+            <div class="kbd-row"><span>Go to Home</span><kbd>H</kbd></div>
+            <div class="kbd-row"><span>Go to World Clocks</span><kbd>W</kbd></div>
+            <div class="kbd-row"><span>Go to Alarm</span><kbd>A</kbd></div>
+            <div class="kbd-row"><span>Go to Stopwatch</span><kbd>S</kbd></div>
+            <div class="kbd-row"><span>Go to Timer</span><kbd>T</kbd></div>
+            <div class="kbd-row"><span>Go to Pomodoro</span><kbd>P</kbd></div>
+            <div class="kbd-row"><span>Go to Events</span><kbd>E</kbd></div>
+            <div class="kbd-row"><span>Go to Converter</span><kbd>C</kbd></div>
+            <div class="kbd-section">Controls</div>
+            <div class="kbd-row"><span>Toggle Dark / Light</span><kbd>D</kbd></div>
+            <div class="kbd-row"><span>Toggle 12 / 24 Format</span><kbd>F</kbd></div>
+            <div class="kbd-row"><span>Toggle sidebar</span><kbd>M</kbd></div>
+            <div class="kbd-row"><span>Start/Pause active timer</span><kbd>Space</kbd></div>
+            <div class="kbd-row"><span>Command Palette</span><kbd>Ctrl+K</kbd></div>
+            <div class="kbd-row"><span>Ambient Mode</span><kbd>Alt+A</kbd></div>
+            <div class="kbd-row"><span>Close sidebar / Escape</span><kbd>Esc</kbd></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== SETTINGS =================== -->
+      <section class="view" id="view-settings">
+        <div class="panel">
+          <h2>⚙ Settings</h2>
+          <div class="lead">Full application configuration.</div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Time &amp; Format</div>
+            <div class="row">
+              <div><b>Date Format</b></div>
+              <select id="settDateFormat" aria-label="Date format">
+                <option value="long">Long (Thursday, 11 September 2026)</option>
+                <option value="medium">Medium (11 Sep 2026)</option>
+                <option value="short">Short (11/09/2026)</option>
+              </select>
+            </div>
+            <div class="row">
+              <div><b>Week Starts On</b></div>
+              <select id="settWeekStart" aria-label="Week start day">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Notifications</div>
+            <div class="row">
+              <div><b>Browser Notifications</b>
+                <div style="font-size:12px;color:var(--panel-sub)">Alarm, timer and event alerts</div>
+              </div>
+              <button class="btn" id="reqNotifPerm">Request Permission</button>
+            </div>
+            <div class="row">
+              <div><b>Notification Status</b></div><span id="notifStatus"
+                style="font-size:13px;color:var(--panel-sub);">—</span>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Weather API (Optional)</div>
+            <div class="row">
+              <div><b>OpenWeatherMap Key</b>
+                <div style="font-size:12px;color:var(--panel-sub)">Leave blank for demo data</div>
+              </div>
+            </div>
+            <input type="text" id="weatherApiKey" placeholder="Paste API key here…"
+              style="width:100%;margin-bottom:8px;" aria-label="Weather API key">
+            <button class="btn primary" id="saveWeatherKey">Save Key</button>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Data Management</div>
+            <div class="row">
+              <div><b>Export all data</b>
+                <div style="font-size:12px;color:var(--panel-sub)">Download backup JSON</div>
+              </div><button class="btn" id="exportDataBtn">Export</button>
+            </div>
+            <div class="row">
+              <div><b>Import data</b>
+                <div style="font-size:12px;color:var(--panel-sub)">Restore from backup</div>
+              </div><button class="btn" id="importDataBtn">Import</button><input type="file" id="importFileInput"
+                accept=".json" style="display:none;" aria-label="Import backup file">
+            </div>
+            <div class="row">
+              <div><b>Reset application</b>
+                <div style="font-size:12px;color:var(--panel-sub);color:#cc3333;">Clears ALL data permanently</div>
+              </div><button class="btn danger" id="resetDataBtn">Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== ABOUT =================== -->
+      <section class="view" id="view-about">
+        <div class="panel about-box">
+          <div style="font-size:48px;margin-bottom:8px;">🕐</div>
+          <div style="font-size:26px;font-weight:800;">Analog <span style="color:#4da3ff;">Clock</span></div>
+          <div style="font-size:13px;color:var(--panel-sub);margin-top:4px;letter-spacing:1px;">TIME BEYOND LIMITS</div>
+          <div class="v" style="margin-top:14px;"><span class="about-badge">v3.0</span></div>
+          <div class="v" style="margin-top:12px;">A modern time, productivity and world-clock dashboard.</div>
+          <div class="about-features">
+            <div class="about-feat">🕐 Analog + Digital Clock</div>
+            <div class="about-feat">🌍 World Clocks</div>
+            <div class="about-feat">🔄 Time Zone Converter</div>
+            <div class="about-feat">🌦 Weather</div>
+            <div class="about-feat">⏰ Smart Alarms</div>
+            <div class="about-feat">⏱ Stopwatch</div>
+            <div class="about-feat">⏳ Timer</div>
+            <div class="about-feat">🍅 Focus / Pomodoro</div>
+            <div class="about-feat">📅 Event Countdown</div>
+            <div class="about-feat">✅ Task Blocks</div>
+            <div class="about-feat">📊 Statistics</div>
+            <div class="about-feat">🎨 Clock Studio</div>
+          </div>
+          <div class="v" style="margin-top:16px;">Built with HTML, CSS &amp; JavaScript — no external dependencies.
+          </div>
+          <div class="v" style="margin-top:8px;">Made with <span class="heart">❤</span> by Avinash — every second
+            counts.</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ====== COMMAND PALETTE ====== -->
+  <div class="cmd-overlay" id="cmdOverlay" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmd-palette">
+      <div class="cmd-search-wrap">
+        <span class="cmd-icon">⌘</span>
+        <input type="text" id="cmdInput" placeholder="Search Clock Hub…" autocomplete="off" aria-label="Command search">
+        <span class="cmd-esc" id="cmdClose">Esc</span>
+      </div>
+      <ul class="cmd-list" id="cmdList" role="listbox"></ul>
+    </div>
+  </div>
+
+  <!-- ====== AMBIENT MODE ====== -->
+  <div class="ambient-overlay" id="ambientOverlay">
+    <div class="ambient-clock" id="ambientClock">00:00:00</div>
+    <div class="ambient-date" id="ambientDate">—</div>
+    <div class="ambient-weather" id="ambientWeather">—</div>
+    <div class="ambient-hint">Press Esc or click to exit</div>
+  </div>
+
+  <!-- ====== TOAST NOTIFICATIONS ====== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="main.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch(function () { });
+    }
+  </script>
+</body>
+
+</html>
